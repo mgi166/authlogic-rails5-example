@@ -1,24 +1,27 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+[authlogic](https://github.com/binarylogic/authlogic) minimal example via rails 5.
 
-Things you may want to cover:
+# Features
 
-* Ruby version
+* Login
+   * `/login`
+* Logout
+   * `/logout`
+* Signup
+   * `/signup`
+* User model CRUD
+   * The operation can be controled after login.
 
-* System dependencies
+# Getting started
 
-* Configuration
+```
+bin/setup
+bin/rails s
+```
 
-* Database creation
+# Test
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```
+bin/rake
+```
