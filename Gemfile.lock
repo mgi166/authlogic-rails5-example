@@ -174,6 +174,8 @@ GEM
     scrypt (2.1.1)
       ffi-compiler (>= 0.0.2)
       rake
+    shoulda-matchers (3.1.1)
+      activesupport (>= 4.0.0)
     slop (3.6.0)
     spring (1.7.1)
     spring-watcher-listen (2.0.0)
@@ -223,6 +225,7 @@ DEPENDENCIES
   rails-controller-testing
   rspec-rails
   sass-rails (~> 5.0)
+  shoulda-matchers
   spring
   spring-watcher-listen (~> 2.0.0)
   turbolinks (~> 5.x)
