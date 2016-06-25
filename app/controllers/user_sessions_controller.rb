@@ -13,5 +13,7 @@ class UserSessionsController < ApplicationController
   end
 
   def destroy
+    current_user_session.destroy
+    redirect_to login_url
   end
 end
