@@ -1,9 +1,5 @@
 Rails.application.routes.draw do
-  get 'user_sessions/new'
-
-  get 'user_sessions/create'
-
-  get 'user_sessions/destroy'
+  resource :user_sessions, only: [:new, :create, :destroy]
 
   get 'top/index'
 
