@@ -33,9 +33,20 @@ RSpec.describe UserSessionsController, :type => :controller do
   end
 
   describe "DELETE destroy" do
-    it "returns http success" do
-      delete :destroy
-      expect(response).to have_http_status(:success)
+    context 'when user logged in' do
+      before { login user }
+
+      it do
+        delete :destroy
+        expect(response).to redirect_to login_path
+      end
+    end
+
+    context 'when user does not logged in' do
+      it do
+        delete :destroy
+        expect(response).to redirect_to login_path
+      end
     end
   end
 
