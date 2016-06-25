@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
+  helper_method :logged_in?
+
   private
 
   def current_user_session
@@ -11,5 +13,9 @@ class ApplicationController < ActionController::Base
   def current_user
     return @current_user if defined? @current_user
     @current_user = current_user_session && current_user_session.user
+  end
+
+  def logged_in?
+    !! current_user_session
   end
 end
