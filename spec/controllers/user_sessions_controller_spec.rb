@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe UserSessionsController, :type => :controller do
+  let(:valid_params) { { user_session: { username: user.username, password: 'password' } } }
+  let(:user) { create :user }
 
   describe "GET new" do
     it "returns http success" do
@@ -10,9 +12,23 @@ RSpec.describe UserSessionsController, :type => :controller do
   end
 
   describe "POST create" do
-    it "returns http success" do
-      post :create
-      expect(response).to have_http_status(:success)
+    context 'given valid params' do
+      it do
+        post :create, params: valid_params
+        expect(response).to redirect_to users_path
+      end
+    end
+
+    context 'given invalid params' do
+      let(:invalid_params) do
+        valid_params[:user_session].update(username: 'bad user')
+        valid_params
+      end
+
+      it do
+        post :create, params: invalid_params
+        expect(response).to render_template :new
+      end
     end
   end
 
