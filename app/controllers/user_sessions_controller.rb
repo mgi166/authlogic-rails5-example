@@ -20,7 +20,8 @@ class UserSessionsController < ApplicationController
 
   private
 
+  # FIXME: https://github.com/binarylogic/authlogic/issues/487
   def user_session_params
-    params.require(:user_session).permit(:username, :password)
+    params.require(:user_session).permit(:username, :password).to_h
   end
 end
