@@ -60,7 +60,7 @@ RSpec.describe UsersController, :type => :controller do
 
   describe "GET new" do
     it "assigns a new user as @user" do
-      get :new, {}, valid_session
+      get :new, params: {}, session: valid_session
       expect(assigns(:user)).to be_a_new(User)
     end
   end
