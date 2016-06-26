@@ -24,7 +24,7 @@ RSpec.describe UsersController, :type => :controller do
   # User. As you add validations to User, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    attributes_for(:user)
   }
 
   let(:invalid_attributes) {
@@ -37,9 +37,12 @@ RSpec.describe UsersController, :type => :controller do
   let(:valid_session) { {} }
 
   describe "GET index" do
+    let!(:user) { create :user }
+
+    before { login user }
+
     it "assigns all users as @users" do
-      user = User.create! valid_attributes
-      get :index, {}, valid_session
+      get :index, params: {}, session: valid_session
       expect(assigns(:users)).to eq([user])
     end
   end
