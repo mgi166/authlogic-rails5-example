@@ -77,33 +77,39 @@ RSpec.describe UsersController, :type => :controller do
   end
 
   describe "POST create" do
+    let!(:user) { create :user }
+
+    before { login user }
+
     describe "with valid params" do
       it "creates a new User" do
         expect {
-          post :create, {:user => valid_attributes}, valid_session
+          post :create, params: {:user => valid_attributes}, session: valid_session
         }.to change(User, :count).by(1)
       end
 
       it "assigns a newly created user as @user" do
-        post :create, {:user => valid_attributes}, valid_session
+        post :create, params: {:user => valid_attributes}, session: valid_session
         expect(assigns(:user)).to be_a(User)
         expect(assigns(:user)).to be_persisted
       end
 
       it "redirects to the created user" do
-        post :create, {:user => valid_attributes}, valid_session
+        post :create, params: {:user => valid_attributes}, session: valid_session
         expect(response).to redirect_to(User.last)
       end
     end
 
     describe "with invalid params" do
+      let(:invalid_attributes) { valid_attributes.update(username: user.username); valid_attributes }
+
       it "assigns a newly created but unsaved user as @user" do
-        post :create, {:user => invalid_attributes}, valid_session
+        post :create, params: {:user => invalid_attributes}, session: valid_session
         expect(assigns(:user)).to be_a_new(User)
       end
 
       it "re-renders the 'new' template" do
-        post :create, {:user => invalid_attributes}, valid_session
+        post :create, params: {:user => invalid_attributes}, session: valid_session
         expect(response).to render_template("new")
       end
     end
