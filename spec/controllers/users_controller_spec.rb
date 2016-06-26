@@ -116,41 +116,47 @@ RSpec.describe UsersController, :type => :controller do
   end
 
   describe "PUT update" do
+    let!(:user) { create :user }
+
+    before { login user }
+
     describe "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        valid_attributes.update(username: 'newUser'); valid_attributes
       }
 
       it "updates the requested user" do
         user = User.create! valid_attributes
-        put :update, {:id => user.to_param, :user => new_attributes}, valid_session
+        put :update, params: {:id => user.to_param, :user => new_attributes}, session: valid_session
         user.reload
-        skip("Add assertions for updated state")
+        expect(assigns(:user).username).to eq 'newUser'
       end
 
       it "assigns the requested user as @user" do
         user = User.create! valid_attributes
-        put :update, {:id => user.to_param, :user => valid_attributes}, valid_session
+        put :update, params: {:id => user.to_param, :user => valid_attributes}, session: valid_session
         expect(assigns(:user)).to eq(user)
       end
 
       it "redirects to the user" do
         user = User.create! valid_attributes
-        put :update, {:id => user.to_param, :user => valid_attributes}, valid_session
+        put :update, params: {:id => user.to_param, :user => valid_attributes}, session: valid_session
         expect(response).to redirect_to(user)
       end
     end
 
     describe "with invalid params" do
+      let(:invalid_attributes) { valid_attributes.update(username: user.username); valid_attributes }
+
       it "assigns the user as @user" do
         user = User.create! valid_attributes
-        put :update, {:id => user.to_param, :user => invalid_attributes}, valid_session
+        put :update, params: {:id => user.to_param, :user => invalid_attributes}, session: valid_session
         expect(assigns(:user)).to eq(user)
       end
 
       it "re-renders the 'edit' template" do
         user = User.create! valid_attributes
-        put :update, {:id => user.to_param, :user => invalid_attributes}, valid_session
+        put :update, params: {:id => user.to_param, :user => invalid_attributes}, session: valid_session
         expect(response).to render_template("edit")
       end
     end
