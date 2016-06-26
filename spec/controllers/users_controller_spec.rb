@@ -66,9 +66,12 @@ RSpec.describe UsersController, :type => :controller do
   end
 
   describe "GET edit" do
+    let!(:user) { create :user }
+
+    before { login user }
+
     it "assigns the requested user as @user" do
-      user = User.create! valid_attributes
-      get :edit, {:id => user.to_param}, valid_session
+      get :edit, params: {:id => user.to_param}, session: valid_session
       expect(assigns(:user)).to eq(user)
     end
   end
