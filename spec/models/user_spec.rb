@@ -10,6 +10,13 @@ RSpec.describe User, :type => :model do
       it { is_expected.not_to allow_value('ああああ').for(:username) }
     end
 
+    context '#email' do
+      it { is_expected.to validate_length_of(:email).is_at_most(100) }
+      it { is_expected.to validate_uniqueness_of(:email).ignoring_case_sensitivity }
+      it { is_expected.not_to allow_value('hoge').for(:email) }
+      it { is_expected.to allow_value('a@b.cd').for(:email) }
+    end
+
     context '#password' do
       it { is_expected.to validate_length_of(:password).is_at_least(4) }
       it { is_expected.to validate_confirmation_of(:password) }
