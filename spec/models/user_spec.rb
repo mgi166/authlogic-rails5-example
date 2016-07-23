@@ -18,7 +18,7 @@ RSpec.describe User, :type => :model do
     end
 
     context '#password' do
-      it { is_expected.to validate_length_of(:password).is_at_least(4) }
+      it { is_expected.to validate_length_of(:password).is_at_least(8) }
       it { is_expected.to validate_confirmation_of(:password) }
     end
 
