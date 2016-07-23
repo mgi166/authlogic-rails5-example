@@ -1,0 +1,6 @@
+language: ruby
+rvm:
+  - 2.2
+  - 2.3
+install: bundle install --path vendor/bundle --binstubs vendor/bundle/bin
+script: bundle exec rake
